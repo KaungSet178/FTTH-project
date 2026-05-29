@@ -21,7 +21,7 @@ export function BottomNavbar() {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border-t border-gray-200/60 dark:border-slate-700/60">
       <div className="mx-auto max-w-lg">
-        <div className="flex items-center justify-around h-16">
+        <div className="flex items-center h-16">
           {tabs.map(({ path, label, icon: Icon }) => {
             const isActive = location.pathname === path
             return (
@@ -29,7 +29,7 @@ export function BottomNavbar() {
                 key={path}
                 whileTap={{ scale: 0.92 }}
                 onClick={() => navigate(path)}
-                className="relative flex flex-col items-center gap-0.5 min-w-0 px-3 py-1"
+                className="relative flex flex-1 flex-col items-center gap-0.5 px-1 py-1"
               >
                 <div className="relative">
                   <Icon

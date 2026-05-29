@@ -26,6 +26,12 @@ async function apiRequest(path, { method = "GET", token, body, headers = {} } = 
   const data = await response.json().catch(() => ({}))
 
   if (!response.ok) {
+    if (response.status === 401) {
+      sessionStorage.removeItem("auth_token")
+      sessionStorage.removeItem("auth_user")
+      window.location.href = "/login"
+      throw new ApiError("Session expired", 401)
+    }
     throw new ApiError(data.message || "Request failed", response.status, data.errors || {})
   }
 

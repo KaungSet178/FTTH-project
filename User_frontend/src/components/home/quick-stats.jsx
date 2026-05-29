@@ -47,7 +47,7 @@ function StatCard({ config, value, meta, delay, children }) {
         <Icon className="h-4.5 w-4.5" />
       </div>
       <p className="text-xs text-muted mb-0.5">{label}</p>
-      <p className="text-sm font-semibold text-gray-900 truncate">{value}</p>
+      <p className="text-sm font-semibold text-gray-900">{value}</p>
       {children ? children : <p className="text-xs text-muted mt-0.5">{meta}</p>}
     </motion.div>
   )

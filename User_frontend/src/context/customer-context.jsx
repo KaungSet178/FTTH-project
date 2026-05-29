@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState, useCallback } from "react"
-import { customer as customerData, devices as initialDevices, tickets as mockTickets, promotions as promotionsData, complaintCategories } from "@/lib/mock-data"
+import { customer as customerData, devices as initialDevices, promotions as promotionsData } from "@/lib/mock-data"
 import { useAuth } from "@/context/auth-context"
 import * as api from "@/lib/api"
 
@@ -40,7 +40,7 @@ function mapTicket(ticket) {
   }
 }
 
-const USE_MOCK = true
+const USE_MOCK = false
 
 export function CustomerProvider({ children }) {
   const { user, token, isAuthenticated } = useAuth()
@@ -66,12 +66,6 @@ export function CustomerProvider({ children }) {
   }, [user])
 
   const loadPortalData = useCallback(async () => {
-    if (USE_MOCK) {
-      setTickets(mockTickets)
-      setCategories(complaintCategories.map((name, i) => ({ id: i + 1, name })))
-      return
-    }
-
     if (!isAuthenticated || !token || user?.role !== "customer") {
       setTickets([])
       setCategories([])
@@ -94,7 +88,7 @@ export function CustomerProvider({ children }) {
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [isAuthenticated, token, user])
 
   useEffect(() => {
     loadPortalData()

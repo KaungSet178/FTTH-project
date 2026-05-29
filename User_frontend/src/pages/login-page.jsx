@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useTranslation } from "react-i18next"
@@ -24,19 +24,24 @@ const itemVariants = {
 function validatePhone(value, t) {
   const cleaned = value.replace(/\s/g, "")
   if (!cleaned) return t("login.phone_required")
-  if (!/^0\d{8,11}$/.test(cleaned)) return t("login.phone_invalid")
+  if (!/^(0|\+?60)\d{8,10}$/.test(cleaned)) return t("login.phone_invalid")
   return ""
 }
 
 function validatePassword(value, t) {
   if (!value) return t("login.password_required")
+  if (value.length < 6) return t("login.password_required")
   return ""
 }
 
 export default function LoginPage() {
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const { login } = useAuth()
+  const { login, isAuthenticated } = useAuth()
+
+  useEffect(() => {
+    if (isAuthenticated) navigate("/", { replace: true })
+  }, [isAuthenticated, navigate])
 
   const [phone, setPhone] = useState("")
   const [password, setPassword] = useState("")

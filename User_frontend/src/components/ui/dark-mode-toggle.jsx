@@ -31,7 +31,7 @@ export function DarkModeToggle({ className = "" }) {
       title={i18n.language === "my" ? "အလင်းအမှောင်ပြောင်းရန်" : "Toggle dark mode"}
     >
       {isDark ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
-      {isDark ? (i18n.language === "my" ? "အလင်း" : "Light") : (i18n.language === "my" ? "အမှောင်" : "Dark")}
+      {isDark ? (i18n.language === "my" ? "Light" : "Light") : (i18n.language === "my" ? "Dark" : "Dark")}
     </button>
   )
 }

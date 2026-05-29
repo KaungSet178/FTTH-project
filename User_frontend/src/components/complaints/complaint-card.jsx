@@ -24,7 +24,7 @@ export function ComplaintCard({ ticket, index }) {
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
-            <h3 className="text-sm font-semibold text-gray-900 truncate">{t(`category.${ticket.category.toLowerCase().replace(/\s+/g, "_")}`, ticket.category)}</h3>
+            <h3 className="text-sm font-semibold text-gray-900">{t(`category.${ticket.category.toLowerCase().replace(/\s+/g, "_")}`, ticket.category)}</h3>
             <Badge status={ticket.status} />
           </div>
           <p className="mt-0.5 text-xs font-mono text-muted">{ticket.id}</p>

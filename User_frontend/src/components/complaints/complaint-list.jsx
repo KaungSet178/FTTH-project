@@ -1,13 +1,34 @@
 import { useTranslation } from "react-i18next"
 import { useCustomer } from "@/context/customer-context"
-import { Ticket } from "lucide-react"
+import { Ticket, AlertCircle } from "lucide-react"
 import { ComplaintCard } from "./complaint-card"
-import { EmptyState } from "@/components/ui"
+import { EmptyState, Skeleton } from "@/components/ui"
 
 export function ComplaintList() {
-  const { tickets } = useCustomer()
+  const { tickets, loading, error } = useCustomer()
 
   const { t } = useTranslation()
+
+  if (loading) {
+    return (
+      <div className="space-y-3">
+        <Skeleton className="h-4 w-32" />
+        <Skeleton className="h-[120px]" />
+        <Skeleton className="h-[120px]" />
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center py-16 px-4 text-center">
+        <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-danger-light">
+          <AlertCircle className="h-8 w-8 text-danger" />
+        </div>
+        <p className="text-sm text-danger font-medium">{error}</p>
+      </div>
+    )
+  }
 
   if (tickets.length === 0) {
     return (

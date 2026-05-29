@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useTranslation } from "react-i18next"
 import { ActiveTickets } from "@/components/home/active-tickets"
 import { DeviceList } from "@/components/home/device-list"
-import { PromotionBanner } from "@/components/home/promotion-banner"
 import { TicketModal } from "@/components/modals/ticket-modal"
 import { Skeleton, DeviceSkeleton } from "@/components/ui"
 import { useCustomer } from "@/context/customer-context"
@@ -50,17 +49,13 @@ function WelcomeMessage() {
 }
 
 export default function HomeDashboard() {
-  const [loading, setLoading] = useState(true)
+  const { tickets, loading, error } = useCustomer()
   const [selectedDevice, setSelectedDevice] = useState(null)
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 800)
-    return () => clearTimeout(timer)
-  }, [])
+  const isLoading = loading || (!tickets.length && !error)
 
   return (
     <AnimatePresence mode="wait">
-      {loading ? (
+      {isLoading ? (
         <motion.div
           key="loading"
           initial={{ opacity: 0 }}

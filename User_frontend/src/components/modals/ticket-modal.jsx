@@ -6,7 +6,7 @@ import { useCustomer } from "@/context/customer-context"
 
 export function TicketModal({ device, onClose }) {
   const { t } = useTranslation()
-  const { addTicket, categories } = useCustomer()
+  const { addTicket, categories, loading } = useCustomer()
   const [category, setCategory] = useState("")
   const [description, setDescription] = useState("")
   const [submitted, setSubmitted] = useState(false)
@@ -122,6 +122,10 @@ export function TicketModal({ device, onClose }) {
               </div>
 
               {error && <p className="text-xs text-danger">{error}</p>}
+
+              {categories.length === 0 && !loading && (
+                <p className="text-xs text-muted text-center">Loading categories...</p>
+              )}
 
               <button
                 type="submit"

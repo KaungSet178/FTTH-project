@@ -82,7 +82,7 @@ function TicketCard({ ticket, index }) {
             {ticket.eta ? (
               <>
                 <Clock className="h-3 w-3 text-warning" />
-                <span className="text-[11px] font-semibold text-warning whitespace-nowrap">{t("home.fix_eta", { eta: ticket.eta })}</span>
+                <span className="text-[11px] font-semibold text-warning">{t("home.fix_eta", { eta: ticket.eta })}</span>
               </>
             ) : (
               <>
@@ -91,7 +91,7 @@ function TicketCard({ ticket, index }) {
                   animate={{ opacity: [1, 0.3, 1] }}
                   transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
                 />
-                <span className="text-[11px] font-medium text-warning whitespace-nowrap">{t("home.calculating")}</span>
+                <span className="text-[11px] font-medium text-warning">{t("home.calculating")}</span>
               </>
             )}
           </div>

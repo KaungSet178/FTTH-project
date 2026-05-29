@@ -52,3 +52,7 @@ body {
   background: var(--color-surface);
   color: var(--color-gray-900);
 }
+
+html:lang(my) body {
+  line-height: 1.65;
+}
