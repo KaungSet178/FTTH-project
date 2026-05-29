@@ -1,7 +1,9 @@
 const variants = {
   open: "bg-warning-light text-warning",
-  resolved: "bg-success-light text-success",
+  assigned: "bg-primary-light text-primary",
+  in_progress: "bg-primary-light text-primary",
   closed: "bg-gray-100 text-muted",
+  cancelled: "bg-danger-light text-danger",
   paid: "bg-success-light text-success",
   pending: "bg-warning-light text-warning",
   overdue: "bg-danger-light text-danger",
@@ -14,7 +16,10 @@ const variants = {
 
 const defaults = {
   open: "Open",
-  resolved: "Resolved",
+  assigned: "Assigned",
+  in_progress: "In Progress",
+  closed: "Closed",
+  cancelled: "Cancelled",
   paid: "Paid",
   pending: "Pending",
   online: "Online",

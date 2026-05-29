@@ -5,16 +5,30 @@ import { Clock } from 'lucide-react'
 
 export default function AcceptModal({ open, onClose, ticket }) {
   const { acceptTicket, addToast } = useTickets()
-  const [arrivalTime, setArrivalTime] = useState('I will arrive in 1 hour')
+  const [arrivalTime, setArrivalTime] = useState(() => {
+    const date = new Date(Date.now() + 24 * 60 * 60 * 1000)
 
-  const handleAccept = () => {
+    return date.toISOString().slice(0, 10)
+  })
+  const [submitting, setSubmitting] = useState(false)
+
+  const handleAccept = async () => {
     if (!arrivalTime.trim()) {
       addToast('Please enter an arrival time estimate', true)
       return
     }
-    acceptTicket(ticket.id, arrivalTime.trim())
-    addToast(`Ticket #${ticket.id} accepted — moved to In Progress`)
-    onClose()
+
+    setSubmitting(true)
+
+    try {
+      await acceptTicket(ticket.id, arrivalTime.trim())
+      addToast(`Ticket #${ticket.id} accepted — moved to In Progress`)
+      onClose()
+    } catch (exception) {
+      addToast(exception.message || 'Could not start job', true)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   if (!ticket) return null
@@ -44,14 +58,13 @@ export default function AcceptModal({ open, onClose, ticket }) {
         <div className="mb-5">
           <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
             <Clock size={15} />
-            Estimated arrival time
+            Estimated arrival date
           </label>
           <input
-            type="text"
+            type="date"
             value={arrivalTime}
             onChange={e => setArrivalTime(e.target.value)}
             className="w-full px-4 py-3 rounded-2xl border border-gray-200 text-sm font-medium text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-colors duration-200"
-            placeholder="e.g., In 1 hour, 2:30 PM"
           />
         </div>
 
@@ -64,9 +77,10 @@ export default function AcceptModal({ open, onClose, ticket }) {
           </button>
           <button
             onClick={handleAccept}
-            className="w-full sm:w-auto px-5 py-3 sm:py-2.5 rounded-2xl bg-primary text-white text-sm font-bold hover:bg-primary-dark transition-all duration-200 active:scale-[0.98]"
+            disabled={submitting}
+            className="w-full sm:w-auto px-5 py-3 sm:py-2.5 rounded-2xl bg-primary text-white text-sm font-bold hover:bg-primary-dark disabled:bg-primary/60 transition-all duration-200 active:scale-[0.98]"
           >
-            Accept & Move to In Progress
+            {submitting ? 'Starting...' : 'Accept & Move to In Progress'}
           </button>
         </div>
       </div>

@@ -12,7 +12,7 @@ export default function TabBar() {
   const { activeTab, setTab } = useTickets()
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 pb-3 pt-1 shadow-[0_-2px_10px_rgba(0,0,0,0.04)]">
+    <nav className="shrink-0 z-40 bg-white border-t border-gray-200 pb-3 pt-1 shadow-[0_-2px_10px_rgba(0,0,0,0.04)]">
       <div className="flex items-center justify-around max-w-lg mx-auto h-14">
         {tabs.map(tab => {
           const isActive = activeTab === tab.key

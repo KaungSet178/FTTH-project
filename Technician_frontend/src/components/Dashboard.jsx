@@ -8,7 +8,7 @@ import CompleteModal from './CompleteModal'
 import { ListTodo, Wrench, CheckCircle2 } from 'lucide-react'
 
 export default function Dashboard() {
-  const { tickets, activeTab } = useTickets()
+  const { tickets, activeTab, loading, error } = useTickets()
   const [modalState, setModalState] = useState({ type: null, ticket: null })
 
   const filteredTickets = useMemo(() => {
@@ -30,7 +30,7 @@ export default function Dashboard() {
   ]
 
   return (
-    <div className="min-h-screen bg-surface">
+    <main className="flex-1 min-h-0 overflow-y-auto overscroll-contain bg-surface">
       <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 sm:py-6 space-y-4 sm:space-y-6 pb-28">
         <motion.div
           className="grid grid-cols-3 gap-2 sm:gap-3"
@@ -69,7 +69,11 @@ export default function Dashboard() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3, delay: 0.15 }}
         >
-          {filteredTickets.length === 0 ? (
+          {loading ? (
+            <EmptyState message="Loading jobs..." />
+          ) : error ? (
+            <EmptyState message={error} />
+          ) : filteredTickets.length === 0 ? (
             <EmptyState />
           ) : (
             filteredTickets.map((ticket, index) => (
@@ -95,6 +99,6 @@ export default function Dashboard() {
         onClose={() => setModalState({ type: null, ticket: null })}
         ticket={modalState.ticket}
       />
-    </div>
+    </main>
   )
 }

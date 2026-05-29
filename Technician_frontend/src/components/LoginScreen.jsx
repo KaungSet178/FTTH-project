@@ -5,17 +5,27 @@ import { Wifi } from 'lucide-react'
 
 export default function LoginScreen() {
   const { login, addToast } = useTickets()
-  const [techId, setTechId] = useState('TECH_MIKE')
-  const [password, setPassword] = useState('demo123')
+  const [phone, setPhone] = useState('09111111101')
+  const [password, setPassword] = useState('password')
+  const [loading, setLoading] = useState(false)
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
-    if (!techId.trim()) {
-      addToast('Please enter a technician ID', true)
+    if (!phone.trim()) {
+      addToast('Please enter your phone number', true)
       return
     }
-    login(techId.trim())
-    addToast(`Welcome back, ${techId.trim()}`)
+
+    setLoading(true)
+
+    try {
+      const user = await login(phone.trim(), password)
+      addToast(`Welcome back, ${user.name}`)
+    } catch (exception) {
+      addToast(exception.errors?.phone?.[0] || exception.message || 'Unable to sign in', true)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -41,16 +51,16 @@ export default function LoginScreen() {
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label htmlFor="techId" className="block text-sm font-semibold text-gray-700 mb-1.5">
-                Technician ID
+              <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-1.5">
+                Phone Number
               </label>
               <input
-                id="techId"
-                type="text"
-                value={techId}
-                onChange={e => setTechId(e.target.value)}
+                id="phone"
+                type="tel"
+                value={phone}
+                onChange={e => setPhone(e.target.value)}
                 className="w-full px-4 py-3 rounded-2xl border border-gray-200 text-sm font-medium text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-colors duration-200"
-                placeholder="Enter your ID"
+                placeholder="Enter your phone"
               />
             </div>
 
@@ -70,14 +80,15 @@ export default function LoginScreen() {
 
             <button
               type="submit"
+              disabled={loading}
               className="w-full py-3.5 rounded-2xl bg-primary text-white font-bold text-sm hover:bg-primary-dark transition-all duration-200 active:scale-[0.98]"
             >
-              Sign In →
+              {loading ? 'Signing in...' : 'Sign In →'}
             </button>
           </form>
 
           <p className="text-center text-xs text-gray-400 mt-6 font-medium">
-            Demo: any ID / password
+            Sample: 09111111101 / password
           </p>
         </div>
       </motion.div>

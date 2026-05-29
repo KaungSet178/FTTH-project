@@ -6,8 +6,10 @@ import { Camera, Upload, CheckCircle, X } from 'lucide-react'
 export default function CompleteModal({ open, onClose, ticket }) {
   const { completeTicket, addToast } = useTickets()
   const [photoPreview, setPhotoPreview] = useState(null)
+  const [photoFile, setPhotoFile] = useState(null)
   const [workNote, setWorkNote] = useState('')
   const [isDragging, setIsDragging] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
   const inputRef = useRef(null)
 
   const handleFile = (file) => {
@@ -15,7 +17,7 @@ export default function CompleteModal({ open, onClose, ticket }) {
       addToast('Please select an image file', true)
       return
     }
-    // file stored implicitly via preview
+    setPhotoFile(file)
     const reader = new FileReader()
     reader.onload = (e) => setPhotoPreview(e.target.result)
     reader.readAsDataURL(file)
@@ -27,18 +29,28 @@ export default function CompleteModal({ open, onClose, ticket }) {
     if (e.dataTransfer.files?.[0]) handleFile(e.dataTransfer.files[0])
   }
 
-  const handleSubmit = () => {
-    if (!photoPreview) {
+  const handleSubmit = async () => {
+    if (!photoFile) {
       addToast('You must upload a completion photo', true)
       return
     }
-    completeTicket(ticket.id, photoPreview, workNote.trim() || 'Work completed')
-    addToast(`Ticket #${ticket.id} completed!`)
-    onClose()
+
+    setSubmitting(true)
+
+    try {
+      await completeTicket(ticket.id, photoFile, workNote)
+      addToast(`Ticket #${ticket.id} completed!`)
+      handleClose()
+    } catch (exception) {
+      addToast(exception.message || 'Could not complete ticket', true)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleClose = () => {
     setPhotoPreview(null)
+    setPhotoFile(null)
     setWorkNote('')
     setIsDragging(false)
     onClose()
@@ -91,7 +103,7 @@ export default function CompleteModal({ open, onClose, ticket }) {
             <div className="relative rounded-2xl overflow-hidden border border-gray-200">
               <img src={photoPreview} alt="Completion proof" className="w-full max-h-48 object-cover" />
               <button
-                onClick={() => setPhotoPreview(null)}
+                onClick={() => { setPhotoPreview(null); setPhotoFile(null) }}
                 className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/50 flex items-center justify-center hover:bg-black/70 transition-colors"
               >
                 <X size={14} className="text-white" />
@@ -126,9 +138,10 @@ export default function CompleteModal({ open, onClose, ticket }) {
           </button>
           <button
             onClick={handleSubmit}
-            className="w-full sm:w-auto px-5 py-3 sm:py-2.5 rounded-2xl bg-success text-white text-sm font-bold hover:bg-[#059669] transition-all duration-200 active:scale-[0.98]"
+            disabled={submitting}
+            className="w-full sm:w-auto px-5 py-3 sm:py-2.5 rounded-2xl bg-success text-white text-sm font-bold hover:bg-[#059669] disabled:bg-success/60 transition-all duration-200 active:scale-[0.98]"
           >
-            Mark as Completed
+            {submitting ? 'Completing...' : 'Mark as Completed'}
           </button>
         </div>
       </div>

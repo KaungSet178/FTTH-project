@@ -2,24 +2,39 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, AlertTriangle } from "lucide-react"
 import { useCustomer } from "@/context/customer-context"
-import { complaintCategories } from "@/lib/mock-data"
 
 export function TicketModal({ device, onClose }) {
-  const { addTicket } = useCustomer()
+  const { addTicket, categories } = useCustomer()
   const [category, setCategory] = useState("")
   const [description, setDescription] = useState("")
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState("")
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    addTicket({
-      deviceId: device.id,
-      deviceName: device.name,
-      category,
-      description,
-    })
-    setSubmitted(true)
-    setTimeout(onClose, 1500)
+    const selectedCategory = categories.find((item) => String(item.id) === category)
+
+    if (!selectedCategory) return
+
+    setSubmitting(true)
+    setError("")
+
+    try {
+      await addTicket({
+        deviceId: device.id,
+        deviceName: device.name,
+        categoryId: selectedCategory.id,
+        categoryName: selectedCategory.name,
+        description,
+      })
+      setSubmitted(true)
+      setTimeout(onClose, 1500)
+    } catch (exception) {
+      setError(exception.message || "Could not submit ticket.")
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -86,27 +101,11 @@ export function TicketModal({ device, onClose }) {
                   className="w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                 >
                   <option value="" disabled>Select a category</option>
-                  {complaintCategories.map((cat) => (
-                    <option key={cat} value={cat}>{cat}</option>
+                  {categories.map((cat) => (
+                    <option key={cat.id} value={cat.id}>{cat.name}</option>
                   ))}
                 </select>
               </div>
-
-              {category === "Others" && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <label className="mb-1.5 block text-xs font-medium text-gray-700">Specify Issue</label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Port not working"
-                    className="w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
-                    onChange={(e) => setDescription(e.target.value)}
-                  />
-                </motion.div>
-              )}
 
               <div>
                 <label className="mb-1.5 block text-xs font-medium text-gray-700">Description</label>
@@ -120,11 +119,14 @@ export function TicketModal({ device, onClose }) {
                 />
               </div>
 
+              {error && <p className="text-xs text-danger">{error}</p>}
+
               <button
                 type="submit"
-                className="w-full rounded-xl bg-primary py-2.5 text-sm font-semibold text-white hover:bg-primary-dark transition-colors active:scale-[0.98]"
+                disabled={submitting || categories.length === 0}
+                className="w-full rounded-xl bg-primary py-2.5 text-sm font-semibold text-white hover:bg-primary-dark disabled:bg-primary/60 transition-colors active:scale-[0.98]"
               >
-                Submit Ticket
+                {submitting ? "Submitting..." : "Submit Ticket"}
               </button>
             </form>
           )}

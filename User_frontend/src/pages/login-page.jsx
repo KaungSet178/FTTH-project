@@ -38,6 +38,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
+  const [formError, setFormError] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -47,9 +48,16 @@ export default function LoginPage() {
     if (phoneErr || passErr) return
 
     setLoading(true)
-    await new Promise((r) => setTimeout(r, 800))
-    login(phone.trim(), password)
-    navigate("/", { replace: true })
+    setFormError("")
+
+    try {
+      await login(phone.trim(), password)
+      navigate("/", { replace: true })
+    } catch (exception) {
+      setFormError(exception.errors?.phone?.[0] || exception.message || "Unable to sign in.")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -89,6 +97,12 @@ export default function LoginPage() {
               </div>
               {errors.phone && <p className="text-xs text-danger mt-1">{errors.phone}</p>}
             </motion.div>
+
+            {formError && (
+              <motion.p variants={itemVariants} className="text-sm text-danger">
+                {formError}
+              </motion.p>
+            )}
 
             <motion.div variants={itemVariants}>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">Password</label>

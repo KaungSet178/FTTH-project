@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui"
 
 export function ActiveTickets() {
   const { tickets } = useCustomer()
-  const openTickets = tickets.filter((t) => t.status === "open")
+  const openTickets = tickets.filter((t) => ["open", "assigned", "in_progress"].includes(t.status))
   const visibleTicket = openTickets.slice(0, 1)
 
   return (
@@ -70,7 +70,7 @@ function TicketCard({ ticket, index }) {
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
               <h3 className="text-sm font-semibold text-gray-900 truncate">{ticket.deviceName}</h3>
-              <Badge status="open" />
+              <Badge status={ticket.status} />
             </div>
             <p className="text-xs text-warning font-medium mt-0.5">{ticket.category}</p>
             <p className="text-xs text-muted mt-1 leading-relaxed line-clamp-1">{ticket.description}</p>

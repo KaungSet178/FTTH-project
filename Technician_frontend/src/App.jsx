@@ -11,7 +11,7 @@ function AppContent() {
   if (!technician) return <LoginScreen />
 
   return (
-    <div className="min-h-screen bg-surface">
+    <div className="h-dvh min-h-screen bg-surface flex flex-col overflow-hidden">
       <Header />
       <Dashboard />
       <TabBar />

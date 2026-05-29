@@ -3,7 +3,7 @@ import { MapPin, Clock, MessageSquare, CheckCircle, Wrench, Camera } from 'lucid
 
 function formatDate(iso) {
   const d = new Date(iso)
-  return d.toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+  return d.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' })
 }
 
 export default function TicketCard({ ticket, index, onAccept, onComplete }) {
@@ -51,7 +51,7 @@ export default function TicketCard({ ticket, index, onAccept, onComplete }) {
           {ticket.arrivalTime && (
             <div className="flex items-center gap-2">
               <Wrench size={14} className="text-gray-400 shrink-0" />
-              <span>ETA: {ticket.arrivalTime}</span>
+              <span>ETA: {formatDate(ticket.arrivalTime)}</span>
             </div>
           )}
         </div>
