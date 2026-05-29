@@ -1,23 +1,25 @@
 import { useNavigate, useLocation } from "react-router-dom"
 import { motion } from "framer-motion"
+import { useTranslation } from "react-i18next"
 import { Home, Ticket, Bell } from "lucide-react"
 import { useCustomer } from "@/context/customer-context"
-
-const tabs = [
-  { path: "/", label: "Home", icon: Home },
-  { path: "/complaints", label: "Tickets", icon: Ticket },
-  { path: "/promotions", label: "Notifications", icon: Bell },
-]
 
 export function BottomNavbar() {
   const navigate = useNavigate()
   const location = useLocation()
+  const { t } = useTranslation()
   const { tickets } = useCustomer()
+
+  const tabs = [
+    { path: "/", label: t("navbar.home"), icon: Home },
+    { path: "/complaints", label: t("navbar.tickets"), icon: Ticket },
+    { path: "/promotions", label: t("navbar.notifications"), icon: Bell },
+  ]
 
   const openTickets = tickets.filter((t) => t.status === "open").length
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-t border-gray-200/60">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border-t border-gray-200/60 dark:border-slate-700/60">
       <div className="mx-auto max-w-lg">
         <div className="flex items-center justify-around h-16">
           {tabs.map(({ path, label, icon: Icon }) => {
@@ -36,10 +38,10 @@ export function BottomNavbar() {
                     }`}
                     fill={isActive ? "currentColor" : "none"}
                   />
-                  {label === "Notifications" && (
-                    <span className="absolute -top-0.5 -right-1 h-2 w-2 rounded-full bg-warning border-2 border-white" />
+                  {path === "/promotions" && (
+                    <span className="absolute -top-0.5 -right-1 h-2 w-2 rounded-full bg-warning border-2 border-white dark:border-slate-800" />
                   )}
-                  {label === "Tickets" && openTickets > 0 && (
+                  {path === "/complaints" && openTickets > 0 && (
                     <span className="absolute -top-1.5 -right-2 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-danger px-1 text-[9px] font-bold text-white leading-none">
                       {openTickets}
                     </span>

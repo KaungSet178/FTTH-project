@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next"
+
 const variants = {
   open: "bg-warning-light text-warning",
   assigned: "bg-primary-light text-primary",
@@ -14,24 +16,10 @@ const variants = {
   weak: "bg-danger-light text-danger",
 }
 
-const defaults = {
-  open: "Open",
-  assigned: "Assigned",
-  in_progress: "In Progress",
-  closed: "Closed",
-  cancelled: "Cancelled",
-  paid: "Paid",
-  pending: "Pending",
-  online: "Online",
-  offline: "Offline",
-  strong: "Strong",
-  medium: "Medium",
-  weak: "Weak",
-}
-
 export function Badge({ status, children, className = "" }) {
+  const { t } = useTranslation()
   const colorClass = variants[status] || "bg-gray-100 text-muted"
-  const label = children || defaults[status] || status
+  const label = children || t(`badge.${status}`, { defaultValue: status })
   return (
     <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium ${colorClass} ${className}`}>
       {status === "online" || status === "strong" ? (

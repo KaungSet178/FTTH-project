@@ -1,4 +1,5 @@
 import { motion } from "framer-motion"
+import { useTranslation } from "react-i18next"
 import { Sparkles, Gift, Zap } from "lucide-react"
 import { useCustomer } from "@/context/customer-context"
 
@@ -15,6 +16,7 @@ const colorMap = {
 }
 
 export function PromotionCard({ promo, index }) {
+  const { t } = useTranslation()
   const Icon = iconMap[promo.color] || Sparkles
 
   return (
@@ -41,9 +43,9 @@ export function PromotionCard({ promo, index }) {
           </div>
         </div>
       </div>
-      <div className="bg-white px-5 py-3">
+      <div className="bg-white dark:bg-gray-800 px-5 py-3">
         <button className="text-xs font-medium text-primary hover:text-primary-dark transition-colors">
-          Learn More →
+          {t("promotions.learn_more")}
         </button>
       </div>
     </motion.div>

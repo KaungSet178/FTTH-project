@@ -1,0 +1,90 @@
+{
+  "app": {
+    "title": "Hackathon Frontend"
+  },
+  "login": {
+    "welcome": "ကြိုဆိုပါတယ်",
+    "subtitle": "ဆက်လက်လုပ်ဆောင်ရန် သင့်ဖုန်းနံပါတ်ထည့်ပါ",
+    "phone_label": "ဖုန်းနံပါတ်",
+    "phone_placeholder": "ဥပမာ - ၀၁၂၃၄၅၆၇၈၉",
+    "phone_required": "ဖုန်းနံပါတ် ထည့်သွင်းရန် လိုအပ်ပါတယ်",
+    "phone_invalid": "မှန်ကန်သော ဖုန်းနံပါတ်ထည့်ပါ (ဥပမာ - ၀၁၂၃၄၅၆၇၈၉)",
+    "password_label": "စကားဝှက်",
+    "password_placeholder": "သင့်စကားဝှက်ထည့်ပါ",
+    "password_required": "စကားဝှက် ထည့်သွင်းရန် လိုအပ်ပါတယ်",
+    "sign_in": "အကောင့်ဝင်ရန်",
+    "forgot_password": "စကားဝှက်မေ့နေပါသလား?",
+    "error_unable": "အကောင့်ဝင်ရန် မအောင်မြင်ပါ။"
+  },
+  "navbar": {
+    "home": "မူလစာမျက်နှာ",
+    "tickets": "တိုင်ကြားချက်များ",
+    "notifications": "အကြောင်းကြားချက်များ",
+    "logout": "ထွက်ရန်"
+  },
+  "home": {
+    "greeting_morning": "မင်္ဂလာနံနက်ခင်းပါ",
+    "greeting_afternoon": "မင်္ဂလာနေ့လယ်ခင်းပါ",
+    "greeting_evening": "မင်္ဂလာညနေခင်းပါ",
+    "hi_name": "မင်္ဂလာပါ {{name}}!",
+    "active_tickets": "လက်ရှိတိုင်ကြားချက်များ",
+    "see_all": "အားလုံးကြည့်ရန်",
+    "view_all_tickets": "တိုင်ကြားချက် {{count}} ခုလုံးကြည့်ရန်",
+    "my_devices": "တပ်ဆင်ထားသောစက်များ",
+    "devices_connected": "{{count}} ခု တပ်ဆင်ထားသည်",
+    "view_details": "အသေးစိတ်ကြည့်ရန်",
+    "report_issue": "တိုင်ကြားရန်",
+    "fix_eta": "{{eta}} နေ့တွင် ပြင်ဆင်မည်",
+    "calculating": "တွက်ချက်နေသည်"
+  },
+  "complaints": {
+    "title": "တိုင်ကြားချက်များ",
+    "subtitle": "သင့်တိုင်ကြားချက်များကို ခြေရာခံကြည့်ပါ",
+    "no_complaints": "တိုင်ကြားချက်များ မရှိပါ",
+    "no_complaints_desc": "တိုင်ကြားချက်တစ်ခုမှ မတင်သွင်းရသေးပါ။",
+    "history": "တိုင်ကြားမှုမှတ်တမ်း",
+    "ticket_count": "တိုင်ကြားချက် {{count}} ခု",
+    "ticket_count_plural": "တိုင်ကြားချက် {{count}} ခု"
+  },
+  "promotions": {
+    "title": "ပရိုမိုးရှင်းများနှင့် ဆုလာဘ်များ",
+    "subtitle": "သင့်အတွက် သီးသန့်ကမ်းလှမ်းချက်များ",
+    "no_offers": "ကမ်းလှမ်းချက်များ မရှိပါ",
+    "no_offers_desc": "နောက်မှ ပြန်လာကြည့်ပါ။",
+    "learn_more": "ပိုမိုလေ့လာရန် →"
+  },
+  "ticket_modal": {
+    "title": "ပြဿနာတင်ရန်",
+    "submitted_title": "တိုင်ကြားချက် တင်သွင်းပြီးပါပြီ",
+    "submitted_desc": "မကြာမီ ပြန်လည်အကြောင်းကြားပါမည်။",
+    "device_label": "စက်ပစ္စည်း",
+    "category_label": "အမျိုးအစား",
+    "category_placeholder": "အမျိုးအစားရွေးချယ်ပါ",
+    "description_label": "အကြောင်းအရာ",
+    "description_placeholder": "ပြဿနာအကြောင်း အကျဉ်းချုံးဖော်ပြပါ...",
+    "submitting": "တင်သွင်းနေသည်...",
+    "submit": "တိုင်ကြားရန်",
+    "error": "တိုင်ကြားချက် တင်သွင်း၍မရပါ။"
+  },
+  "badge": {
+    "open": "ဆောင်ရွက်ဆဲ",
+    "assigned": "တာဝန်ပေးထားသည်",
+    "in_progress": "ဆောင်ရွက်နေသည်",
+    "closed": "ဆောင်ရွက်ပြီး",
+    "cancelled": "ပယ်ဖျက်ထားသည်",
+    "paid": "ပေးချေပြီး",
+    "pending": "ဆိုင်းငံ့ထားသည်",
+    "online": "အွန်လိုင်း",
+    "offline": "အော့ဖ်လိုင်း",
+    "strong": "အားကောင်း",
+    "medium": "အလယ်အလတ်",
+    "weak": "အားနည်း"
+  },
+  "category": {
+    "no_internet": "အင်တာနက်မရှိ",
+    "slow_speed": "မြန်နှုန်းနှေးခြင်း",
+    "device_offline": "စက်ပစ္စည်းအော့ဖ်လိုင်း",
+    "billing_issue": "ငွေပေးချေမှုပြဿနာ",
+    "others": "အခြား"
+  }
+}

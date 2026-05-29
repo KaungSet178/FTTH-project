@@ -1,15 +1,8 @@
-import { Navigate, Outlet } from "react-router-dom"
-import { useAuth } from "@/context/auth-context"
+import { Outlet } from "react-router-dom"
 import { TopNavbar } from "./top-navbar"
 import { BottomNavbar } from "./bottom-navbar"
 
 export function Layout() {
-  const { isAuthenticated } = useAuth()
-
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />
-  }
-
   return (
     <div className="min-h-screen bg-surface">
       <TopNavbar />

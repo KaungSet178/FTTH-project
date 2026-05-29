@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useTranslation } from "react-i18next"
 import { ActiveTickets } from "@/components/home/active-tickets"
 import { DeviceList } from "@/components/home/device-list"
 import { PromotionBanner } from "@/components/home/promotion-banner"
@@ -32,19 +33,19 @@ function LoadingState() {
 }
 
 function WelcomeMessage() {
+  const { t } = useTranslation()
   const { customer } = useCustomer()
   const greeting = (() => {
     const h = new Date().getHours()
-    if (h < 12) return "Good morning"
-    if (h < 17) return "Good afternoon"
-    return "Good evening"
+    if (h < 12) return t("home.greeting_morning")
+    if (h < 17) return t("home.greeting_afternoon")
+    return t("home.greeting_evening")
   })()
 
   return (
-    <div>
-      <h1 className="text-xl font-semibold text-gray-900">Hi {customer.name}!</h1>
-      <p className="text-sm text-muted">{greeting},</p>
-    </div>
+    <p className="text-xl font-semibold text-gray-900">
+      {greeting} {customer.name}
+    </p>
   )
 }
 

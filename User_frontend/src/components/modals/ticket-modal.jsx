@@ -1,9 +1,11 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useTranslation } from "react-i18next"
 import { X, AlertTriangle } from "lucide-react"
 import { useCustomer } from "@/context/customer-context"
 
 export function TicketModal({ device, onClose }) {
+  const { t } = useTranslation()
   const { addTicket, categories } = useCustomer()
   const [category, setCategory] = useState("")
   const [description, setDescription] = useState("")
@@ -31,7 +33,7 @@ export function TicketModal({ device, onClose }) {
       setSubmitted(true)
       setTimeout(onClose, 1500)
     } catch (exception) {
-      setError(exception.message || "Could not submit ticket.")
+      setError(exception.message || t("ticket_modal.error"))
     } finally {
       setSubmitting(false)
     }
@@ -52,16 +54,16 @@ export function TicketModal({ device, onClose }) {
           exit={{ scale: 0.9, opacity: 0 }}
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
           onClick={(e) => e.stopPropagation()}
-          className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl"
+          className="w-full max-w-lg rounded-2xl bg-white dark:bg-slate-800 dark:border dark:border-slate-700/60 p-6 shadow-xl"
         >
           <div className="flex items-center justify-between mb-5">
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-red-50">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-red-50 dark:bg-red-950">
                 <AlertTriangle className="h-4 w-4 text-red-500" />
               </div>
-              <h2 className="text-base font-semibold text-gray-900">Report Issue</h2>
+              <h2 className="text-base font-semibold text-gray-900 dark:text-white">{t("ticket_modal.title")}</h2>
             </div>
-            <button onClick={onClose} className="p-1 text-gray-400 hover:text-gray-600">
+            <button onClick={onClose} className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
               <X className="h-5 w-5" />
             </button>
           </div>
@@ -77,45 +79,45 @@ export function TicketModal({ device, onClose }) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <p className="text-sm font-semibold text-gray-900">Ticket Submitted</p>
-              <p className="text-xs text-muted mt-1">We'll get back to you shortly.</p>
+              <p className="text-sm font-semibold text-gray-900 dark:text-white">{t("ticket_modal.submitted_title")}</p>
+              <p className="text-xs text-muted mt-1">{t("ticket_modal.submitted_desc")}</p>
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="mb-1.5 block text-xs font-medium text-gray-700">Device</label>
+                <label className="mb-1.5 block text-xs font-medium text-gray-700">{t("ticket_modal.device_label")}</label>
                 <input
                   type="text"
                   value={`${device.name} (${device.id})`}
                   readOnly
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-2.5 text-sm text-gray-500 outline-none"
+                  className="w-full rounded-xl border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900 px-3.5 py-2.5 text-sm text-gray-500 outline-none"
                 />
               </div>
 
               <div>
-                <label className="mb-1.5 block text-xs font-medium text-gray-700">Category</label>
+                <label className="mb-1.5 block text-xs font-medium text-gray-700">{t("ticket_modal.category_label")}</label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                   required
-                  className="w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                  className="w-full rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3.5 py-2.5 text-sm text-gray-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                 >
-                  <option value="" disabled>Select a category</option>
+                  <option value="" disabled>{t("ticket_modal.category_placeholder")}</option>
                   {categories.map((cat) => (
-                    <option key={cat.id} value={cat.id}>{cat.name}</option>
+                    <option key={cat.id} value={cat.id}>{t(`category.${cat.name.toLowerCase().replace(/\s+/g, "_")}`, cat.name)}</option>
                   ))}
                 </select>
               </div>
 
               <div>
-                <label className="mb-1.5 block text-xs font-medium text-gray-700">Description</label>
+                <label className="mb-1.5 block text-xs font-medium text-gray-700">{t("ticket_modal.description_label")}</label>
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   required
                   rows={3}
-                  placeholder="Briefly describe the issue..."
-                  className="w-full resize-none rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                  placeholder={t("ticket_modal.description_placeholder")}
+                  className="w-full resize-none rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3.5 py-2.5 text-sm text-gray-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                 />
               </div>
 
@@ -126,7 +128,7 @@ export function TicketModal({ device, onClose }) {
                 disabled={submitting || categories.length === 0}
                 className="w-full rounded-xl bg-primary py-2.5 text-sm font-semibold text-white hover:bg-primary-dark disabled:bg-primary/60 transition-colors active:scale-[0.98]"
               >
-                {submitting ? "Submitting..." : "Submit Ticket"}
+                {submitting ? t("ticket_modal.submitting") : t("ticket_modal.submit")}
               </button>
             </form>
           )}

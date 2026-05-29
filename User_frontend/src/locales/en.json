@@ -1,0 +1,90 @@
+{
+  "app": {
+    "title": "Hackathon Frontend"
+  },
+  "login": {
+    "welcome": "Welcome Back",
+    "subtitle": "Enter your phone number to continue",
+    "phone_label": "Phone Number",
+    "phone_placeholder": "e.g. 0123456789",
+    "phone_required": "Phone number is required",
+    "phone_invalid": "Enter a valid phone number (e.g. 0123456789)",
+    "password_label": "Password",
+    "password_placeholder": "Enter your password",
+    "password_required": "Password is required",
+    "sign_in": "Sign In",
+    "forgot_password": "Forgot password?",
+    "error_unable": "Unable to sign in."
+  },
+  "navbar": {
+    "home": "Home",
+    "tickets": "Tickets",
+    "notifications": "Notifications",
+    "logout": "Logout"
+  },
+  "home": {
+    "greeting_morning": "Good morning",
+    "greeting_afternoon": "Good afternoon",
+    "greeting_evening": "Good evening",
+    "hi_name": "Hi {{name}}!",
+    "active_tickets": "Active Tickets",
+    "see_all": "See all",
+    "view_all_tickets": "View all {{count}} tickets",
+    "my_devices": "My Devices",
+    "devices_connected": "{{count}} connected",
+    "view_details": "View Details",
+    "report_issue": "Report Issue",
+    "fix_eta": "Fix {{eta}}",
+    "calculating": "Calculating"
+  },
+  "complaints": {
+    "title": "Complaint Status",
+    "subtitle": "Track your reported issues",
+    "no_complaints": "No Complaints",
+    "no_complaints_desc": "You haven't submitted any tickets yet.",
+    "history": "Complaint History",
+    "ticket_count": "{{count}} ticket",
+    "ticket_count_plural": "{{count}} tickets"
+  },
+  "promotions": {
+    "title": "Promotions & Rewards",
+    "subtitle": "Exclusive offers for you",
+    "no_offers": "No Offers Available",
+    "no_offers_desc": "Check back later for new promotions.",
+    "learn_more": "Learn More →"
+  },
+  "ticket_modal": {
+    "title": "Report Issue",
+    "submitted_title": "Ticket Submitted",
+    "submitted_desc": "We'll get back to you shortly.",
+    "device_label": "Device",
+    "category_label": "Category",
+    "category_placeholder": "Select a category",
+    "description_label": "Description",
+    "description_placeholder": "Briefly describe the issue...",
+    "submitting": "Submitting...",
+    "submit": "Submit Ticket",
+    "error": "Could not submit ticket."
+  },
+  "badge": {
+    "open": "Open",
+    "assigned": "Assigned",
+    "in_progress": "In Progress",
+    "closed": "Closed",
+    "cancelled": "Cancelled",
+    "paid": "Paid",
+    "pending": "Pending",
+    "online": "Online",
+    "offline": "Offline",
+    "strong": "Strong",
+    "medium": "Medium",
+    "weak": "Weak"
+  },
+  "category": {
+    "no_internet": "No Internet",
+    "slow_speed": "Slow Speed",
+    "device_offline": "Device Offline",
+    "billing_issue": "Billing Issue",
+    "others": "Others"
+  }
+}

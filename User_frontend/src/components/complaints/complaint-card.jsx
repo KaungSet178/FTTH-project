@@ -1,20 +1,22 @@
 import { motion } from "framer-motion"
+import { useTranslation } from "react-i18next"
 import { Wifi, Clock } from "lucide-react"
 import { Badge } from "@/components/ui"
 
 export function ComplaintCard({ ticket, index }) {
+  const { t } = useTranslation()
   const categoryIcon = ticket.category === "No Internet" || ticket.category === "Slow Speed"
-    ? "bg-red-50 text-red-500"
+    ? "bg-red-50 dark:bg-red-950 text-red-500"
     : ticket.category === "Device Offline"
-    ? "bg-orange-50 text-orange-500"
-    : "bg-gray-50 text-muted"
+    ? "bg-orange-50 dark:bg-orange-950 text-orange-500"
+    : "bg-gray-50 dark:bg-slate-700 text-muted"
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.08, duration: 0.35 }}
-      className="bg-white rounded-2xl shadow-card border border-gray-100/60 p-4"
+      className="bg-white dark:bg-slate-800 rounded-2xl shadow-card border border-gray-100/60 dark:border-slate-700/60 p-4"
     >
       <div className="flex items-start gap-3">
         <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${categoryIcon}`}>
@@ -22,7 +24,7 @@ export function ComplaintCard({ ticket, index }) {
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
-            <h3 className="text-sm font-semibold text-gray-900 truncate">{ticket.category}</h3>
+            <h3 className="text-sm font-semibold text-gray-900 truncate">{t(`category.${ticket.category.toLowerCase().replace(/\s+/g, "_")}`, ticket.category)}</h3>
             <Badge status={ticket.status} />
           </div>
           <p className="mt-0.5 text-xs font-mono text-muted">{ticket.id}</p>
