@@ -68,27 +68,29 @@ function TicketCard({ ticket, index }) {
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
               <h3 className="text-sm font-semibold text-gray-900 truncate">{ticket.deviceName}</h3>
-              <Badge status={ticket.status} />
             </div>
             <p className="text-xs text-warning font-medium mt-0.5">{t(`category.${ticket.category.toLowerCase().replace(/\s+/g, "_")}`, ticket.category)}</p>
             <p className="text-xs text-muted mt-1 leading-relaxed line-clamp-1">{ticket.description}</p>
           </div>
-          <div className="flex shrink-0 items-center gap-1.5 rounded-lg bg-warning-light px-2.5 py-1.5 mt-0.5">
-            {ticket.eta ? (
-              <>
-                <Clock className="h-3 w-3 text-warning" />
-                <span className="text-[11px] font-semibold text-warning">{t("home.fix_eta", { eta: ticket.eta })}</span>
-              </>
-            ) : (
-              <>
-                <motion.span
-                  className="h-2 w-2 rounded-full bg-warning"
-                  animate={{ opacity: [1, 0.3, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                />
-                <span className="text-[11px] font-medium text-warning">{t("home.calculating")}</span>
-              </>
-            )}
+          <div className="flex shrink-0 flex-col items-end gap-1.5 mt-0.5">
+            <div className="flex items-center gap-1.5 rounded-lg bg-warning-light px-2.5 py-1.5">
+              {ticket.eta ? (
+                <>
+                  <Clock className="h-3 w-3 text-warning" />
+                  <span className="text-[11px] font-semibold text-warning">{t("home.fix_eta", { eta: ticket.eta })}</span>
+                </>
+              ) : (
+                <>
+                  <motion.span
+                    className="h-2 w-2 rounded-full bg-warning"
+                    animate={{ opacity: [1, 0.3, 1] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                  <span className="text-[11px] font-medium text-warning">{t("home.calculating")}</span>
+                </>
+              )}
+            </div>
+            <Badge status={ticket.status} />
           </div>
         </div>
       </div>
