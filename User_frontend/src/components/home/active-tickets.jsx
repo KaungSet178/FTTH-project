@@ -20,12 +20,7 @@ export function ActiveTickets() {
             {openTickets.length}
           </span>
         </div>
-        <Link
-          to="/complaints"
-          className="text-xs font-medium text-warning hover:text-warning/80 transition-colors"
-        >
-          {t("home.see_all")}
-        </Link>
+
       </div>
       <div className="space-y-2.5">
         {openTickets.length === 0 ? (
