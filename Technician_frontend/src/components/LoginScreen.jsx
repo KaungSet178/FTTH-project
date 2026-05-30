@@ -42,7 +42,7 @@ export default function LoginScreen() {
               <Wifi size={24} className="text-primary sm:size-[28px]" strokeWidth={2} />
             </div>
             <h1 className="text-xl sm:text-2xl font-heading font-extrabold text-gray-900">
-              TechFlow
+              Init
             </h1>
             <p className="text-sm text-muted mt-1 font-medium">
               Technician Login

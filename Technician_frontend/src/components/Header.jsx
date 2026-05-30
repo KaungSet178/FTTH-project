@@ -10,8 +10,8 @@ export default function Header() {
       <div className="flex items-center gap-2 sm:gap-3">
         <div className="flex items-center gap-1.5 sm:gap-2.5">
           <Wifi size={20} className="text-primary sm:size-[22px]" strokeWidth={2} />
-          <h1 className="text-lg font-heading font-extrabold bg-gradient-to-r from-[#1e3a8a] to-primary bg-clip-text text-transparent leading-none">
-            WiFiFix
+          <h1 className="text-lg font-heading font-extrabold text-gray-900 leading-none">
+            Init
           </h1>
         </div>
         <span className="hidden sm:inline text-sm text-gray-400 font-medium leading-none">·</span>

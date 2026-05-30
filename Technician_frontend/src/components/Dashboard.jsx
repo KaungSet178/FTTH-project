@@ -49,13 +49,13 @@ export default function Dashboard() {
                 transition={{ delay: i * 0.08, duration: 0.4 }}
                 whileHover={{ y: -2 }}
               >
-                <div className="flex items-center justify-between gap-1">
-                  <div className="min-w-0">
-                    <p className="text-[11px] sm:text-xs font-semibold text-muted truncate">{stat.label}</p>
-                    <p className="text-xl sm:text-2xl font-heading font-extrabold text-gray-900 mt-0.5 sm:mt-1">{stat.value}</p>
-                  </div>
-                  <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0 ${stat.color}`}>
-                    <Icon size={16} strokeWidth={2} className="sm:size-[20px]" />
+                <div>
+                  <p className="text-[11px] sm:text-xs font-semibold text-muted">{stat.label}</p>
+                  <div className="flex items-center justify-between gap-1 mt-0.5 sm:mt-1">
+                    <p className="text-xl sm:text-2xl font-heading font-extrabold text-gray-900">{stat.value}</p>
+                    <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0 ${stat.color}`}>
+                      <Icon size={16} strokeWidth={2} className="sm:size-[20px]" />
+                    </div>
                   </div>
                 </div>
               </motion.div>
