@@ -86,10 +86,6 @@ export default function LoginScreen() {
               {loading ? 'Signing in...' : 'Sign In →'}
             </button>
           </form>
-
-          <p className="text-center text-xs text-gray-400 mt-6 font-medium">
-            Sample: 09111111101 / password
-          </p>
         </div>
       </motion.div>
     </div>
